@@ -4,13 +4,19 @@ import { requireAuth } from '@/lib/auth/session';
 import { patientService } from '@/lib/services/patient.service';
 import { isAppError } from '@/lib/errors';
 
+type SexValue = 'male' | 'female' | 'other' | 'unknown';
+const validSexValues = new Set<string>(['male', 'female', 'other', 'unknown']);
+
 function extractPatientFields(formData: FormData) {
+  const rawSex = (formData.get('sex') as string) || undefined;
+  const sex = rawSex && validSexValues.has(rawSex) ? (rawSex as SexValue) : undefined;
+
   return {
     firstName: formData.get('firstName') as string,
     lastName: formData.get('lastName') as string,
     preferredName: (formData.get('preferredName') as string) || undefined,
     dateOfBirth: formData.get('dateOfBirth') as string,
-    sex: (formData.get('sex') as string) || undefined,
+    sex,
     genderIdentity: (formData.get('genderIdentity') as string) || undefined,
     pronouns: (formData.get('pronouns') as string) || undefined,
     phone: (formData.get('phone') as string) || undefined,

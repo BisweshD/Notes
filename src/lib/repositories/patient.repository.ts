@@ -4,6 +4,8 @@ import { patients } from '@/lib/db/schema';
 import { eq, and, or, like, isNull } from 'drizzle-orm';
 import type { CreatePatientInput, UpdatePatientInput } from '@/lib/validators/patient';
 
+type PatientStatus = 'active' | 'inactive' | 'discharged';
+
 export const patientRepository = {
   findAll(organizationId: string, options?: { search?: string; status?: string }) {
     const db = getDb();
@@ -13,7 +15,7 @@ export const patientRepository = {
     ];
 
     if (options?.status) {
-      conditions.push(eq(patients.status, options.status));
+      conditions.push(eq(patients.status, options.status as PatientStatus));
     }
 
     if (options?.search) {
