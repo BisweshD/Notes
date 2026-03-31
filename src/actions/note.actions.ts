@@ -3,12 +3,16 @@
 import { requireAuth } from '@/lib/auth/session';
 import { noteRepository } from '@/lib/repositories/note.repository';
 import { encounterRepository } from '@/lib/repositories/encounter.repository';
+import { auditService } from '@/lib/services/audit.service';
 import { isAppError } from '@/lib/errors';
 
 export async function updateNoteSectionAction(sectionId: string, content: string) {
   try {
-    await requireAuth();
+    const user = await requireAuth();
     const section = noteRepository.updateSectionContent(sectionId, content, 'ai_edited');
+    if (section) {
+      auditService.logNoteEdit(user.id, section.noteId, section.sectionKey);
+    }
     return { success: true as const, section };
   } catch (error) {
     return {
@@ -50,6 +54,8 @@ export async function signNoteAction(noteId: string) {
     encounterRepository.updateStatus(note.encounterId, 'signed', {
       endedAt: new Date().toISOString(),
     });
+
+    auditService.logNoteSign(user.id, noteId, note.encounterId);
 
     return { success: true as const, note };
   } catch (error) {
