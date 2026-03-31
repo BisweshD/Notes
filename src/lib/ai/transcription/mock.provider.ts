@@ -12,7 +12,9 @@ export class MockTranscriptionProvider implements TranscriptionProvider {
   readonly name = 'mock';
 
   async transcribe(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- mock ignores audio payload
     _audio: Buffer,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- mock ignores transcription options
     _options?: TranscriptionOptions,
   ): Promise<TranscriptionResult> {
     // Simulate processing delay

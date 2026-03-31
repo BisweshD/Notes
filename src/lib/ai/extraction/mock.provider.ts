@@ -14,6 +14,7 @@ export class MockExtractionProvider implements ExtractionProvider {
   async extract(
     _transcript: string,
     extractionType: ExtractionType,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- mock ignores clinical context
     _context?: ClinicalContext,
   ): Promise<ExtractionResult> {
     await new Promise((resolve) => setTimeout(resolve, 500));

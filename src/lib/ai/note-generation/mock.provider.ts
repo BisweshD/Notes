@@ -47,8 +47,11 @@ export class MockNoteGenerationProvider implements NoteGenerationProvider {
   async generateSection(
     sectionKey: string,
     sectionTitle: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- mock ignores transcript
     _transcript: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- mock ignores extractions
     _extractions: ExtractionResult[],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- mock ignores clinical context
     _context?: ClinicalContext,
   ): Promise<NoteSectionDraft> {
     // Simulate processing delay
@@ -65,9 +68,12 @@ export class MockNoteGenerationProvider implements NoteGenerationProvider {
 
   async generateAllSections(
     sections: Array<{ key: string; title: string }>,
-    transcript: string,
-    extractions: ExtractionResult[],
-    context?: ClinicalContext,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- mock ignores transcript
+    _transcript: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- mock ignores extractions
+    _extractions: ExtractionResult[],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- mock ignores clinical context
+    _context?: ClinicalContext,
   ): Promise<NoteSectionDraft[]> {
     // Simulate processing delay
     await new Promise((resolve) => setTimeout(resolve, 2000));

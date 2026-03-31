@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
@@ -19,7 +19,6 @@ import {
 } from '@/components/ui/alert-dialog';
 import {
   ArrowLeft,
-  Check,
   FileSignature,
   Lock,
   Loader2,
@@ -80,7 +79,7 @@ export function NoteReviewWorkspace({
   const [sections, setSections] = useState(initialSections);
   const [showSignDialog, setShowSignDialog] = useState(false);
   const [isSigning, setIsSigning] = useState(false);
-  const [activeSegmentId, setActiveSegmentId] = useState<string | null>(null);
+  const [activeSegmentId] = useState<string | null>(null);
 
   const isLocked = note?.isLocked ?? false;
   const isSigned = note?.status === 'signed';

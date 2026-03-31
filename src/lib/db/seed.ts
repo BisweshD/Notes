@@ -7,8 +7,6 @@ import {
   patients,
   encounters,
   noteTemplates,
-  encounterNotes,
-  noteSections,
   measurementTypes,
 } from './schema';
 
