@@ -83,7 +83,24 @@ export function EncounterWorkspace({
         setEncounter(result.encounter!);
         setCurrentRecordingId(null);
         setIsRecording(false);
-        toast.success('Recording stopped. Processing...');
+        toast.success('Recording stopped. Processing encounter...');
+
+        // Trigger processing pipeline
+        try {
+          const processResult = await fetch(
+            `/api/encounters/${encounter.id}/process`,
+            { method: 'POST' },
+          );
+          const processData = await processResult.json();
+          if (processData.success) {
+            toast.success('Note generated! Ready for review.');
+          } else {
+            toast.error('Processing had issues. You can still review.');
+          }
+        } catch {
+          toast.error('Processing encountered an error');
+        }
+
         router.refresh();
       } else {
         toast.error(result.error);
